@@ -9,8 +9,14 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory
 WORKDIR /app
 
-# Install JupyterLab
-RUN pip3 install jupyterlab
+# Create a virtual environment
+RUN python3 -m venv /app/venv
+
+# Activate the virtual environment
+ENV PATH="/app/venv/bin:$PATH"
+
+# Install JupyterLab inside the virtual environment
+RUN pip install jupyterlab
 
 # Expose port 8080
 EXPOSE 8080
